@@ -1,0 +1,6 @@
+{
+  "name": "Nucleus Command Center",
+  "description": "A premium, futuristic digital command center redesign for Nucleus Software Technologies, featuring interactive neural core, technological galaxy, live system dashboards, mission dossiers, and holographic testimonials.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
