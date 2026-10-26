@@ -183,11 +183,15 @@ export default function App() {
             onMouseEnter={() => playSound('hover', isMuted)}
             id="brand-logo"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-[#6D28D9] to-[#EC4899] rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(109,40,217,0.5)] font-bold text-white">
-              N
+            <div className="h-9 px-2 py-1 bg-white rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.35)] border border-cyan/30">
+              <img 
+                src="/assets/aistudio/unnamed_9c5495db.jpg" 
+                alt="Nucleus Soft Tech Logo" 
+                className="h-6 w-auto object-contain" 
+              />
             </div>
             <div className="flex flex-col">
-              <div className="text-xs tracking-[0.2em] font-black uppercase text-white">Nucleus <span className="font-light opacity-50 underline decoration-[#EC4899] text-[10px]">Engineering</span></div>
+              <div className="text-xs tracking-[0.2em] font-black uppercase text-white">Nucleus <span className="font-light opacity-60 text-cyan text-[10px]">Soft Tech</span></div>
               <div className="flex items-center gap-1.5 font-mono text-[7px] tracking-widest text-[#06B6D4] uppercase font-bold">
                 <div className="w-1 h-1 rounded-full bg-[#06B6D4] animate-pulse"></div> UPLINK: STABLE
               </div>
