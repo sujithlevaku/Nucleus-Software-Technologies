@@ -577,14 +577,11 @@ export default function InitiateProject() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan/10 border border-cyan/20 text-[#06B6D4] font-mono text-[10px] tracking-widest uppercase font-bold mb-3">
                 <FileSpreadsheet className="w-3.5 h-3.5" />
-                <span>Google Sheets Integrated Enquiry Channel</span>
+                <span>Enquiry CHANNEL</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-sans text-white mt-1 mb-4 font-black tracking-tighter uppercase leading-[1.05]">
+              <h2 className="text-3xl md:text-5xl font-sans text-white mt-1 mb-2 font-black tracking-tighter uppercase leading-[1.05]">
                 Initiate Mission
               </h2>
-              <p className="text-slate-400 text-sm md:text-base font-light leading-relaxed">
-                Submit your project briefing. Your inquiry automatically posts directly to the central Google Sheet database in the schema: <code className="text-cyan font-mono text-xs font-semibold">Date, Name, Email, Message</code>.
-              </p>
             </div>
 
             {/* Main Glass Form Container */}
@@ -665,21 +662,12 @@ export default function InitiateProject() {
                     />
                   </div>
 
-                  {/* Target schema indicator */}
-                  <div className="p-3 rounded-xl bg-slate-950/70 border border-white/5 flex items-center justify-between font-mono text-[9px] text-slate-400">
-                    <div className="flex items-center gap-1.5">
-                      <FileSpreadsheet className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Google Sheet Columns: <strong className="text-white">Date (Auto), Name, Email, Message</strong></span>
-                    </div>
-                    <span className="text-cyan font-bold">A:D ROW</span>
-                  </div>
-
                   <button
                     type="submit"
                     className="mt-2 bg-gradient-to-r from-cyan to-purple-600 hover:from-cyan/90 hover:to-purple-600/90 text-slate-950 font-sans font-extrabold py-3.5 px-6 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer shadow-lg group shadow-cyan/10 text-xs tracking-wider uppercase"
                     id="btn-execute-send"
                   >
-                    <span>Submit Enquiry to Spreadsheet</span>
+                    <span>Submit Enquiry</span>
                     <Send className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
                 </form>
@@ -755,6 +743,29 @@ export default function InitiateProject() {
                 </div>
               )}
             </div>
+
+            {/* Contact Details HUD rail */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2" id="contact-details-grid">
+              <a href="mailto:info@nucleussoft.ca" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-3xl p-5 flex items-center gap-4 transition-all duration-300 group shadow-md cursor-pointer">
+                <div className="w-10 h-10 bg-cyan/5 border border-white/10 text-cyan rounded-xl flex items-center justify-center shrink-0 group-hover:bg-cyan/10">
+                  <Mail className="w-5 h-5 text-[#06B6D4]" />
+                </div>
+                <div>
+                  <span className="block font-mono text-[8px] text-slate-500 font-bold uppercase">SECURE_MAIL</span>
+                  <span className="text-slate-300 text-xs font-semibold group-hover:text-white">info@nucleussoft.ca</span>
+                </div>
+              </a>
+
+              <a href="tel:+14163589743" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-3xl p-5 flex items-center gap-4 transition-all duration-300 group shadow-md cursor-pointer">
+                <div className="w-10 h-10 bg-purple-500/5 border border-white/10 text-purple-400 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-purple-500/10">
+                  <Phone className="w-5 h-5 text-purple-400" />
+                </div>
+                <div>
+                  <span className="block font-mono text-[8px] text-slate-500 font-bold uppercase">VOICE_CHANNEL</span>
+                  <span className="text-slate-300 text-xs font-semibold group-hover:text-white">+1 (416) 358-9743</span>
+                </div>
+              </a>
+            </div>
           </div>
 
           {/* Tactical Sonar Map Column */}
@@ -782,29 +793,6 @@ export default function InitiateProject() {
                   <div className="text-xs md:text-sm text-[#06B6D4] font-medium tracking-wide">Brampton, ON, L6R 0Y7, Canada</div>
                 </div>
               </div>
-            </div>
-
-            {/* Contact Details HUD rail */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2" id="contact-details-grid">
-              <a href="mailto:info@nucleussoft.ca" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-3xl p-5 flex items-center gap-4 transition-all duration-300 group shadow-md cursor-pointer">
-                <div className="w-10 h-10 bg-cyan/5 border border-white/10 text-cyan rounded-xl flex items-center justify-center shrink-0 group-hover:bg-cyan/10">
-                  <Mail className="w-5 h-5 text-[#06B6D4]" />
-                </div>
-                <div>
-                  <span className="block font-mono text-[8px] text-slate-500 font-bold uppercase">SECURE_MAIL</span>
-                  <span className="text-slate-300 text-xs font-semibold group-hover:text-white">info@nucleussoft.ca</span>
-                </div>
-              </a>
-
-              <a href="tel:+14169000000" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-3xl p-5 flex items-center gap-4 transition-all duration-300 group shadow-md cursor-pointer">
-                <div className="w-10 h-10 bg-purple-500/5 border border-white/10 text-purple-400 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-purple-500/10">
-                  <Phone className="w-5 h-5 text-purple-400" />
-                </div>
-                <div>
-                  <span className="block font-mono text-[8px] text-slate-500 font-bold uppercase">VOICE_CHANNEL</span>
-                  <span className="text-slate-300 text-xs font-semibold group-hover:text-white">+1 (416) 555-0199</span>
-                </div>
-              </a>
             </div>
           </div>
 
