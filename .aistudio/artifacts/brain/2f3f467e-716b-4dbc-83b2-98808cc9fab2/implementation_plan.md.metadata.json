@@ -1,6 +1,6 @@
 {
-  "summary":  "Updated implementation plan reflecting removal of the Date form field (auto-stamped in the background) and complete removal of localStorage for leads (direct post to Google Sheet/Webhook).",
-  "updatedAt":  "2026-10-26T17:41:37.300337146Z",
+  "summary":  "Implementation plan for adding a faint trailing digital particle effect to CursorFollower that dissipates smoothly within 400-600ms as the mouse moves across the viewport.",
+  "updatedAt":  "2026-10-26T23:24:15.642117043Z",
   "requestFeedback":  true,
   "userFacing":  true
 }

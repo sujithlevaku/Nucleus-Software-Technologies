@@ -1,103 +1,91 @@
-# Zero-Login Google Sheet Enquiry Form Architecture
+# Lingering Digital Particle Trail for CursorFollower
 
-A streamlined, friction-free enquiry submission system that allows website visitors to submit briefings directly into the owner's Google Sheet (`Date, Name, Email, Message`) without any Google Sign-In requirement, without asking visitors for a Date field, and without using local storage.
+A high-performance, faint trailing digital particle effect integrated into the cursor follower, emitting subtle glowing data dust that dissipates within 400–600ms as visitors move their mouse across the viewport.
+
+### User Review & Critical Decisions
 
 > [!IMPORTANT]
-> **Confirmed Decisions**:
-> 1. **Zero Visitor Sign-In**: Visitors submit the form (`Name`, `Email`, `Message`) with 0 authentication barriers. No Google popup, no login prompt, and no account requirement.
-> 2. **No Date Field in Form UI**: The date is automatically generated and stamped in the background (`YYYY-MM-DD`) so visitors only need to input **Name**, **Email**, and **Message**.
-> 3. **No Local Storage for Leads**: Submissions post directly to the designated Google Sheet via the Google Apps Script Webhook or direct Google Sheets API. No leads are stored or persisted in browser `localStorage`.
-> 4. **Submission Channel**: Submissions post directly to the Google Sheet via a **Google Apps Script Web App Webhook** (`doPost` endpoint) deployed with `Anyone` access, or direct Google Sheets API append.
-> 5. **Owner Auth Concealment**: Google Sign-In controls are completely removed from the public visitor interface and tucked into a discreet Owner Ops Console modal accessible via the footer.
+> The following parameters have been aligned with your preference:
+> - **Trail Dissipation Time**: 400 to 600 milliseconds (quick, evanescent fade-out).
+> - **Visual Aesthetics**: Cyberpunk-inspired micro data dust rendered in dual-tone cyan (`#06B6D4`) and interactive magenta (`#EC4899`) with faint soft glow and zero layout interference.
+> - **Rendering Strategy**: Dedicated high-performance 2D Canvas overlay positioned at `z-[9998]` directly behind the cursor ring to guarantee 60fps motion without DOM node accumulation or memory leaks.
 
 ---
 
 ### 1. Overview & Core Concept
 
-- **What It Does**: Visitors filling out the "Initiate Mission" enquiry form will submit their project inquiry (**Name**, **Email**, **Message**). The system automatically attaches today's date in `YYYY-MM-DD` and transmits the 4-column record (`Date, Name, Email, Message`) directly to the Google Sheet.
-- **Target Audience**: Prospective clients, partners, and enterprise visitors seeking software consulting and IT engineering services from Nucleus Soft Tech.
-- **Key Value**: 100% frictionless visitor conversion with no date input burden, no login requirement, and immediate transmission to the owner's spreadsheet.
+- **What It Does**: As the user moves their cursor across the viewport, the `CursorFollower` component continuously emits subtle, ambient micro-particles along its trajectory. Each particle drifts slightly with randomized physics and fades out smoothly within 400–600ms.
+- **Target Audience / Persona**: Prospective enterprise clients and technical stakeholders exploring the Nucleus Soft Tech command center, reinforcing the futuristic, precision-engineered identity of the site.
+- **Key Value**: Adds tactile visual feedback and digital presence without distracting from readability or slowing down frame rates.
 
 ---
 
 ### 2. User Experience & Visual Design
 
-- **Visitor Experience**:
-  - The form is clean, high-tech, and minimal with only 3 essential fields:
-    1. **Name** (Full name / Lead contact).
-    2. **Email** (Work email address with real-time format validation).
-    3. **Message** (Project brief or scope).
-  - Date is auto-computed as today's date in `YYYY-MM-DD` and sent with the submission.
-  - Prominent "Submit Enquiry to Spreadsheet" action button with cyber-glow micro-interaction.
-  - Interactive terminal telemetry feedback displaying live transmission status, verification checkmark, and lead reference code.
-  - Zero Google login prompts, badges, or warnings displayed on the form.
-
-- **Discreet Owner Administration**:
-  - The bulky "Spreadsheet Sync Channel / Sign in with Google" HUD is completely removed from above the public form.
-  - A subtle, discreet indicator in the bottom copyright bar opens the **Owner Ops Console** where the owner can:
-    - View or update the active Google Sheet ID / Apps Script Webhook URL.
-    - Copy the copy-paste-ready Apps Script code snippet for the Google Sheet.
-    - Inspect live sheet leads fetched directly from Google Sheets API or current session submissions.
-    - Sign in with Google for owner-level sheet generation and direct API append testing.
+- **Key User Flows**:
+  - **Cursor Travel**: Moving the mouse generates a stream of microscopic glowing points along the path of movement.
+  - **Stationary / Rest State**: When the cursor stops moving, the trailing particles cleanly dissolve into the dark background within half a second, leaving the screen crisp and calm.
+  - **Interactive Hover State**: When hovering over interactive buttons, dossiers, or links, new particles shift to magenta/pink hue (`#EC4899`), matching the cursor crosshair's energetic lock-on state.
+  - **Touch & Mobile Awareness**: Disabled on touchscreens (`pointer: coarse`) and when `prefers-reduced-motion` is active to maintain battery efficiency and accessibility.
+- **Visual Identity & Theme**:
+  - *Particle Aesthetic*: Micro-points ($1.5\text{px}$ to $3\text{px}$) with soft alpha halos (`rgba(6, 182, 212, 0.45)` transitioning to `rgba(236, 72, 153, 0.55)`).
+  - *Dissipation Curve*: Exponential decay curve over 450ms with subtle velocity dispersion ($\pm 0.4\text{px}/\text{frame}$) simulating digital luminescence dissipating in zero gravity.
 
 ---
 
-### 3. Technical Architecture & Data Strategy
+### 3. Key Product Decisions & Trade-Offs
 
-```
-┌────────────────────────────────────────────────────────┐
-│               Public Visitor (Browser)                 │
-│                 [Name]  [Email]                        │
-│                 [Project Message]                      │
-└──────────────────────────┬─────────────────────────────┘
-                           │
-                           │  1. Submit (Auto-stamps Date: YYYY-MM-DD)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│             InitiateProject Form Handler               │
-│  - Field sanitization & validation                     │
-│  - Zero localStorage usage                             │
-│  - Live cyber telemetry log animation                  │
-└──────────────────────────┬─────────────────────────────┘
-                           │
-                           │ 2. HTTP POST (Webhook / API)
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│ Google Apps Script Web App (doPost) / Sheets API       │
-└──────────────────────────┬─────────────────────────────┘
-                           │
-                           │ 3. appendRow([Date, Name, Email, Message])
-                           ▼
-┌────────────────────────────────────────────────────────┐
-│             Target Google Spreadsheet                  │
-│       Headers: Date | Name | Email | Message           │
-└────────────────────────────────────────────────────────┘
-```
-
-#### Form Data Model & Payload
-```typescript
-interface LeadSubmission {
-  id?: string;
-  date: string;       // Auto-computed YYYY-MM-DD
-  name: string;       // Visitor input
-  email: string;      // Visitor input
-  message: string;    // Visitor input
-  submittedAt?: string;
-  status?: 'POSTED_TO_SHEET' | 'PENDING_SYNC' | 'QUEUED';
-}
-```
+- **Rendering Engine: HTML5 Canvas vs. DOM / Framer Motion Elements**:
+  - *Chosen Approach*: Lightweight full-viewport `<canvas>` overlay rendered via `requestAnimationFrame`.
+  - *Why*: Spawning dozens of React DOM nodes or Framer Motion divs per second creates garbage collection spikes and layout recalcs. A single Canvas context redraws lightweight circles in a single composite pass at 60fps.
+  - *Alternatives Considered*: CSS keyframe animations on DOM elements (dropped due to memory leaks and DOM tree churn).
+- **Throttled Particle Spawning**:
+  - *Chosen Approach*: Spawn particles only when the cursor has traveled at least $8\text{px}$ from the last point or on dynamic time intervals.
+  - *Why*: Prevents particle stacking when moving slowly and creates a uniform distribution at varying speeds.
 
 ---
 
-### 4. Verification & Testing Steps
+### 4. Technical Architecture & Data Strategy
 
-1. **Visitor Submission Flow**:
-   - Verify only Name, Email, and Message fields are rendered in the enquiry form.
-   - Verify submission succeeds immediately without opening any Google Sign-In popup or asking for credentials.
-   - Verify telemetry terminal shows schema validation `[Date (Auto: YYYY-MM-DD), Name, Email, Message]`.
-2. **Owner Ops Console**:
-   - Access the discreet Ops Console modal via the footer.
-   - Confirm Webhook URL configuration, Apps Script copy snippet, and live sheet leads viewer.
-   - Confirm zero localStorage calls or persistence of leads.
-3. **Compilation & Linting**:
-   - Ran `lint_applet` (`tsc --noEmit`) and `compile_applet` with 0 errors.
+```
+┌─────────────────────────────────────────────────────────────┐
+│                       Viewport (Window)                     │
+│  [mousemove] ──> calculate delta distance & speed           │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│                 CursorFollower Component                    │
+│                                                             │
+│   ┌─────────────────────────────────────────────────────┐   │
+│   │ Particle Buffer Pool (Array<Particle>)              │   │
+│   │ - x, y, vx, vy, size, alpha, maxLife, color         │   │
+│   └──────────────────────────┬──────────────────────────┘   │
+│                              │                              │
+│                              ▼                              │
+│   ┌─────────────────────────────────────────────────────┐   │
+│   │ requestAnimationFrame Render Loop                   │   │
+│   │ - Clears canvas overlay                             │   │
+│   │ - Updates particle physics (position += velocity)   │   │
+│   │ - Fades alpha linearly over 400-600ms               │   │
+│   │ - Prunes expired particles                          │   │
+│   └──────────────────────────┬──────────────────────────┘   │
+│                              │                              │
+│                              ▼                              │
+│   ┌─────────────────────────────────────────────────────┐   │
+│   │ <canvas className="fixed inset-0 pointer-events-none│   │
+│   │         z-[9998] mix-blend-screen" />               │   │
+│   └─────────────────────────────────────────────────────┘   │
+│                              │                              │
+│   ┌──────────────────────────┴──────────────────────────┐   │
+│   │ Outer Crosshair Ring & Laser Core (z-[9999])        │   │
+│   └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+- **Component & State Structure**:
+  - `CursorFollower.tsx`: Houses the animation frame loop, resize listener for canvas buffer dimensions, particle generator, and existing Framer Motion cursor indicators.
+- **Verification Plan**:
+  - Verify smooth tracking and particle emission across fast and slow mouse motions.
+  - Confirm fading occurs cleanly within the targeted 400–600ms timeframe without residual artifacts.
+  - Run `compile_applet` to ensure zero compilation or type errors.
